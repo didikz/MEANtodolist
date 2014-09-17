@@ -87,7 +87,7 @@ module.exports = function(app, passport) {
 
 	// process the login form
 	app.post('/user/login', passport.authenticate('local-login', {
-		successRedirect: '/user/profile',
+		successRedirect: '/user/todolist',
 		failureRedirect: '/user/login',
 		failureFlash: true,
 	}));
@@ -104,7 +104,7 @@ module.exports = function(app, passport) {
 
 	// process signup form
 	app.post('/user/signup', passport.authenticate('local-signup', {
-		successRedirect: '/user/profile',
+		successRedirect: '/user/todolist',
 		failureRedirect: '/user/signup',
 		failureFlash: true,
 	}));
@@ -117,6 +117,14 @@ module.exports = function(app, passport) {
 	app.get('/user/profile', isLoggedIn, function(req, res) {
 
 		res.render('profile.ejs', {
+			user: req.user			// get the user out of session and pass to template
+		});
+	});
+
+	// todolist section
+	app.get('/user/todolist', isLoggedIn, function(req, res) {
+
+		res.render('todolist.ejs', {
 			user: req.user			// get the user out of session and pass to template
 		});
 	});
